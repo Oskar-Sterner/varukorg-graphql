@@ -1,0 +1,48 @@
+type Cart {
+id: ID
+amountOfGames: Int
+totalPrice: Int
+games: [Game]
+}
+
+type Game {
+id: ID
+name: String
+gamePrice: Int
+}
+
+enum AvailableGames {
+ELDENRING
+STARCRAFT
+MINECRAFT
+LOL
+CSGO
+}
+
+type DeletedResourceResponse {
+deletedId: ID
+success: Boolean
+}
+
+type Query {
+getCartById(cartId: ID!): Cart
+getAllCarts: [Cart]
+getGameById(gameId: ID!): Game
+}
+
+type Mutation {
+createCart: Cart
+addGameToCart(input: AddGameToCartInput!): Cart
+removeGameFromCart(input: RemoveGameFromCartInput!): Cart
+deleteCart(cartId: ID!): DeletedResourceResponse
+}
+
+input AddGameToCartInput {
+cartId: ID!
+chosenGame: AvailableGames!
+}
+
+input RemoveGameFromCartInput {
+cartId: ID!
+chosenGame: AvailableGames!
+}
